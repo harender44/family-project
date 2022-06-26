@@ -1,0 +1,42 @@
+{% extends "base.html" %} 
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="row">
+  <div class="column left" style="background-color:#f39c12">
+    <h1>Family tree</h1>
+  <h5 class="w3-padding-32">Family tree content</h5>
+    <p class="w3-text-white">Every individual has a history which should be remembered and documented. We at KULVRIKSH understand the importance of family and helps you build your family tree and connect your past, present and future. Just like a tree, the roots help the trunk and the branches grow, similarly ancestors are our roots, the roots where we came from which makes us who we are. Knowing our roots help us understand our family better.
+Every family has a story, hence having a family tree encourages the newer generation to get acquantianted with their ancestors to know their stories and understand their origin.
+Families are the most important part of our lives and we at KULVRIKSH are dedicated towards connecting your families across generations.</p>
+  </div>
+  <div class="column right" style="background-color:white">
+    <form method="post">
+      <div class="form-group">
+        <p class="text-danger">Email address:</p>
+        <input type="email" class="form-control" name="email" id="exampleInputEmail1" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <p class="text-danger">Password</p>
+        <input type="password" class="form-control" name="pswd" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <button type="submit" class="btn login_btn">Login</button>
+      <p class="message">Not registered? <a href="/signup"> Register Now!</a></p>
+  </form>
+  </div>
+</div>
+</head>
+</html>
+
+
+
+
+
+{% endblock content %}
