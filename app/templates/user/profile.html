@@ -2,12 +2,72 @@
 
 {% block user_content %}
 
-<h1>User Profile Content</h1>
-<h1>User Profile Content</h1>
-<h1>User Profile Content</h1>
 
 {% if user %}
+<form method="post" enctype="multipart/form-data">
+    <h1>Personal Details </h1>
+    <div class="form-group">
+        <label for="Sur name">Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Enter your Name">&nbsp; &nbsp; &nbsp;
 
+        <label for="Middle name">Middle Name</label>
+        <input type="text" class="form-control" name="Middle_name" placeholder="Enter your Middle name">&nbsp; &nbsp; &nbsp;
+
+        <label for="Last name">Last Name</label>
+        <input type="text" class="form-control" name="l_name" placeholder="Enter your last name">&nbsp; &nbsp; &nbsp;
+
+
+        <label for="Gotra">Gotra</label>
+        <input type="text" class="form-control" name="Gotra" placeholder="Enter your Gotra">&nbsp; &nbsp; &nbsp;<br> 
+
+
+        <label for="Religion">Religion</label>
+        <input type="text" class="form-control" name="Religion" placeholder="Enter your Religion">&nbsp; &nbsp; &nbsp;
+
+
+        <label for="Cast">Cast</label>
+        <input type="text" class="form-control" name="Cast" placeholder="Enter your Cast">&nbsp; &nbsp; &nbsp;
+
+
+        <label for="Sub cast">Sub Cast</label>
+        <input type="text" class="form-control" name="Sub cast" placeholder="Enter your Sub cast">&nbsp; &nbsp; &nbsp;
+
+
+        <label for="Native town">Native town</label>
+        <input type="text" class="form-control" name="Native town" placeholder="Enter your Native town">&nbsp; &nbsp; &nbsp;<br>
+
+
+        <label for="Mother tongue">Mother tongue</label>
+        <input type="text" class="form-control" name="Mother tongue" placeholder="Enter your Mother tongue">&nbsp; &nbsp; &nbsp;
+
+
+        <label for="Place of Birth">Place of Birth</label>
+        <input type="text" class="form-control" name="Place of Birth" placeholder="Enter your Place of Birth">
+    </div>
+    <h1>Family Details </h1>
+    <div class="form-group">
+        <label for="Father name">Father Name</label>
+        <input type="text" class="form-control" name="Father Name" placeholder="Enter your Father Name">&nbsp; &nbsp; &nbsp;
+    
+        <label for="Mother name">Mother name</label>
+        <input type="text" class="form-control" name="Mother name" placeholder="Enter your Mother name"><br>
+    
+        <label for="Grand Father name">Grand Father Name</label>
+        <input type="text" class="form-control" name="Grand Father Name" placeholder="Enter your Grand Father Name">&nbsp; &nbsp; &nbsp;
+    
+        <label for="Grand Mother name">Grand Mother name</label>
+        <input type="text" class="form-control" name="Grand Mother name" placeholder="Enter your Grand Mother name"><br>
+
+        <label for="Spouse name">Spouse Name</label>
+        <input type="text" class="form-control" name="Spouse name" placeholder="Enter your Spouse name"><br>
+
+        <input type="text" class="form-control" name="Kid 1" placeholder="Enter name of Kid 1">&nbsp; &nbsp; &nbsp;
+        <input type="text" class="form-control" name="Kid 2" placeholder="Enter name of Kid 2">&nbsp; &nbsp; &nbsp;
+        <input type="text" class="form-control" name="Kid 3" placeholder="Enter name of Kid 3">&nbsp; &nbsp; &nbsp;
+        <input type="text" class="form-control" name="Kid 4" placeholder="Enter name of Kid 4">&nbsp; &nbsp; &nbsp;
+    </div>
+    <button type="submit" class="btn login_btn">submit</button>
+  </form>
 
 
 
