@@ -1,4 +1,18 @@
 
+*{
+  --main-color: red;                /* #8629ff  */
+  --headings-color: #ff0000;
+  --main-container-color: #0000ff;
+}
+
+/*
+*{
+  --main-color: #e12424;
+  --headings-color: red;
+  --main-container-color: #f39c12;
+}
+*/
+
 
 html{
   margin: 0;
@@ -41,7 +55,7 @@ html{
 body {
   font: 20px Montserrat, sans-serif;
   line-height: 1.8;
-  color: #f5f6f7;
+  color: #fff;
   margin: 0;
 	padding: 0;
 	height: 100%;
@@ -49,12 +63,12 @@ body {
 } 
 h1{
   font-weight: bold;
-  color: red;
+  color: var(--headings-color);
 }
 p {font-size: 16px;}
 .margin {margin-bottom: 45px;}
 .bg-1 { 
-  background-color: #e12424; /* Green */
+  background-color: var(--main-color);
   color: #ffffff;
 }
 .bg-2 { 
@@ -94,34 +108,25 @@ p {font-size: 16px;}
   padding: 16px;
   left: 50%;
   margin-left: -600px; 
-  background-color: #f39c12;
+  background-color: var(--main-container-color);
 }
 .gradient-custom-2 {
-  background: #fccb90;
-  background: linear-gradient(to right, #f39c12, #f77525, #fe5411, #c0392b);
+  background: #fff;
+  background: linear-gradient(to right, var(--main-container-color), var(--main-color));
   }
   
-@media (min-width: 768px) {
-.gradient-form {
- height: 100vh !important;
-}
-}
-@media (min-width: 769px) {
-.gradient-custom-2 {
-border-top-right-radius: .3rem;
-border-bottom-right-radius: .3rem;
-}
-}  
+
+ 
 .login_btn {
 	width: 100%;
-	background: #c0392b;
+	background: var(--main-color);
 	color: white;
 }
 .profile_btn{
   position: relative;
   left: 35%;
   width: 20%;
-	background: #c0392b;
+	background: var(--main-color);
 	color: white;
 }
 .column {
@@ -178,5 +183,15 @@ border-bottom-right-radius: .3rem;
   color: #000;
 }
 .message a{
-  color: #f39c12;
+  color: var(--main-container-color);
+}
+
+
+@media (min-width: 768px) {
+  .gradient-form {
+   height: 100vh !important;}
+   .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+  }
 }
