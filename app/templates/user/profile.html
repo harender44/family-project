@@ -3,7 +3,49 @@
 {% block user_content %}
 
 
-{% if user %}
+{% if person %}
+
+<div>
+    <h1>Your personal Details are:</h1>
+    <p style="color: red">sur_name: {{ person.sur_name }}</p>
+    <p style="color: red">first_name: {{ person.first_name }}</p>
+    <p style="color: red">last_name: {{ person.last_name }}</p>
+    <p style="color: red">email: {{ person.email }}</p>
+</div>
+<br>
+
+{% if profile %}
+<div>
+    <h1>Your profile Details are:</h1>
+    <p style="color: red">gotra: {{ profile.gotra }}</p>
+    <p style="color: red">religion: {{ profile.religion }}</p>
+    <p style="color: red">caste: {{ profile.caste }}</p>
+    <p style="color: red">sub_caste: {{ profile.sub_caste }}</p>
+    <p style="color: red">mother_tongue: {{ profile.mother_tongue }}</p>
+    <p style="color: red">native_region: {{ profile.native_region }}</p>
+    <p style="color: red">date_of_birth: {{ profile.date_of_birth }}</p>
+    <p style="color: red">place_of_birth: {{ profile.place_of_birth }}</p>
+    <p style="color: red">gender: {{ profile.gender }}</p>
+    </div>
+    <br>
+{% endif %}
+
+{% if family %}
+<div>
+    <h1>Your family Details are:</h1>
+    <p style="color: red">father_name: {{ family.father_name }}</p>
+    <p style="color: red">mother_name: {{ family.mother_name }}</p>
+    <p style="color: red">grand_father: {{ family.grand_father }}</p>
+    <p style="color: red">grand_mother: {{ family.grand_mother }}</p>
+    <p style="color: red">great_grand_father: {{ family.great_grand_father }}</p>
+    <p style="color: red">great_grand_mother: {{ family.great_grand_mother }}</p>
+    <p style="color: red">spouse_name: {{ family.spouse_name }}</p>
+    <p style="color: red">kids: {{ family.kids }}</p>
+</div>
+{% endif %}
+
+{% else %}
+
 <html>
 <head>
 <body>
@@ -19,45 +61,72 @@
             <h1>Personal Details:</h1>
             <div class="grid-container" >
             <div>
-                <label for="Sur name">Name:</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter your Name">
-            </div>
-            <div>
-                <label for="Middle name">Middle Name:</label>
-                <input type="text" class="form-control" name="Middle_name" placeholder="Enter your Middle name">
-            </div>
-            <div>
-                <label for="Last name">Last Name:</label>
-                <input type="text" class="form-control" name="l_name" placeholder="Enter your last name">
-            </div>
-            <div>
                 <label for="Gotra">Gotra:</label>
-                <input type="text" class="form-control" name="Gotra" placeholder="Enter your Gotra">
+                <input type="text" class="form-control" name="gotra" placeholder="Enter your Gotra">
             </div>
             <div>
                 <label for="Religion">Religion:</label>
-                <input type="text" class="form-control" name="Religion" placeholder="Enter your Religion">
+                <input type="text" class="form-control" name="religion" placeholder="Enter your Religion">
             </div>
             <div>
                 <label for="Cast">Caste:</label>
-                <input type="text" class="form-control" name="Caste" placeholder="Enter your Caste">
+                <input type="text" class="form-control" name="caste" placeholder="Enter your Caste">
             </div>
             <div>
                 <label for="Sub cast">Sub Caste:</label>
-                <input type="text" class="form-control" name="Sub cast" placeholder="Enter your Sub Caste">
+                <input type="text" class="form-control" name="sub_cast" placeholder="Enter your Sub Caste">
             </div>
             <div>
                 <label for="Native town">Native Place:</label>
-                <input type="text" class="form-control" name="Native town" placeholder="Enter your Native Place">
+                <input type="text" class="form-control" name="native_town" placeholder="Enter your Native Place">
             </div>
             <div>
                 <label for="Mother tongue">Mother tongue:</label>
-                <input type="text" class="form-control" name="Mother tongue" placeholder="Enter your Mother tongue">
+                <input type="text" class="form-control" name="mother_tongue" placeholder="Enter your Mother tongue">
             </div>
             <div>
+                <label for="Date of Birth">Date of Birth:</label>
+                <input type="date" class="form-control" name="dob" placeholder="Enter your Date of Birth">
+            </div>  
+            <div>
                 <label for="Place of Birth">Place of Birth:</label>
-                <input type="text" class="form-control" name="Place of Birth" placeholder="Enter your Place of Birth">
+                <input type="text" class="form-control" name="place_of_birth" placeholder="Enter your Place of Birth">
+            </div>  
+            <div>
+                <label for="Gender">Gender:</label>
+                <select name="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
             </div>           
+            <div>
+                <label for="Father name">Father Name:</label>
+                <input type="text" class="form-control" name="father_name" placeholder="Enter your Father Name">
+            </div>
+            <div>
+                <label for="Mother name">Mother name:</label>
+                <input type="text" class="form-control" name="mother_name" placeholder="Enter your Mother name">
+            </div>
+            <div>
+                <label for="Grand Father name">Grand Father Name:</label>
+                <input type="text" class="form-control" name="grand_father" placeholder="Enter your Grand Father Name">
+            </div>
+            <div>
+                <label for="Grand Mother name">Grand Mother name:</label>
+                <input type="text" class="form-control" name="grand_mother" placeholder="Enter your Grand Mother name">
+            </div>
+            <div>
+                <label for="Spouse name">Spouse Name:</label>
+                <input type="text" class="form-control" name="spouse_name" placeholder="Enter your Spouse name">
+            </div>
+        </div>     
+                <label for="Kids">Kids:</label>
+                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 1">
+                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 2">
+                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 3">
+                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 4"><br>
+            
         </div><br>
     <div>
         <button type="submit" class="btn profile_btn">submit</button>
@@ -65,47 +134,10 @@
 </form>
   
 
-<form method="post" class=container enctype="multipart/form-data">
-    <h1>Personal details</h1>
-            <div class="grid-container" >
-                <div>
-                    <label for="Father name">Father Name:</label>
-                    <input type="text" class="form-control" name="Father Name" placeholder="Enter your Father Name">
-                </div>
-                <div>
-                    <label for="Mother name">Mother name:</label>
-                    <input type="text" class="form-control" name="Mother name" placeholder="Enter your Mother name">
-                </div>
-                <div>
-                    <label for="Grand Father name">Grand Father Name:</label>
-                    <input type="text" class="form-control" name="Grand Father Name" placeholder="Enter your Grand Father Name">
-                </div>
-                <div>
-                    <label for="Grand Mother name">Grand Mother name:</label>
-                    <input type="text" class="form-control" name="Grand Mother name" placeholder="Enter your Grand Mother name">
-                </div>
-                <div>
-                    <label for="Spouse name">Spouse Name:</label>
-                    <input type="text" class="form-control" name="Spouse name" placeholder="Enter your Spouse name">
-                </div>
-            </div>     
-                    <label for="Kids">Kids:</label>
-                    <input type="text" class="grid-container" name="Kid 1" placeholder="Enter name of Kid 1">
-                    <input type="text" class="grid-container" name="Kid 2" placeholder="Enter name of Kid 2">
-                    <input type="text" class="grid-container" name="Kid 3" placeholder="Enter name of Kid 3">
-                    <input type="text" class="grid-container" name="Kid 4" placeholder="Enter name of Kid 4"><br>
-                
-                <button type="submit" class="btn profile_btn">submit</button>
-            
-</form>
+
 </body>
 </head>
 </html>
-
-
-
-
-
 
 {% endif %}
 

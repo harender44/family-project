@@ -12,10 +12,12 @@ def home():
         pswd = request.form.get('pswd')
 
         user = Users.query.filter_by(email=email).first()
-
+        print("found user")
         if user:
             if sha256_crypt.verify(pswd, user.password):
-                session['email'] = user.email
+                print("verified")
+                session['id'] = user.id
+                print("got id")
                 return redirect(url_for('user.home'))
             flash('Invalid password!')
         flash('Invalid Credentials!')
@@ -39,7 +41,7 @@ def signup():
             db.session.add(user)
             db.session.commit()
 
-            session['email'] = email
+            session['id'] = Users.query.filter_by(email=email).first().id
 
             return redirect(url_for('user.home'))
 

@@ -9,6 +9,7 @@ class Users(db.Model):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     date_of_birth = db.Column(db.String(20))
+    place_of_birth = db.Column(db.String(20))
     gender = db.Column(db.String(10))
 
 class Profile(db.Model):
@@ -20,7 +21,8 @@ class Profile(db.Model):
     sub_caste = db.Column(db.String(20))
     mother_tongue = db.Column(db.String(20))
     native_region = db.Column(db.String(30))
-    native_district = db.Column(db.String(30))
+    date_of_birth = db.Column(db.String(30))
+    gender = db.Column(db.String(10))
     place_of_birth = db.Column(db.String(30))
 
 class FamilyDetails(db.Model):
