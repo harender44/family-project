@@ -1,6 +1,8 @@
 
-from flask import Blueprint, render_template, session, redirect, url_for, request
+from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from functools import wraps
+from .. import mail
+import smtplib
 
 from ..models import *
 
@@ -58,7 +60,7 @@ def profile():
         dob = request.form.get('dob')
         gender = request.form.get('gender')
 
-        prof = Profile(uid = session['id'],gotra = gotra, religion=religion, caste=caste,gender=gender,sub_caste=s_caste,mother_tongue=mother_tongue,native_region=native_town,date_of_birth=dob,place_of_birth=place_of_birth)
+        prof = Profile(uid = session['id'],gotra = gotra.lower(), religion=religion.lower(), caste=caste.lower(),gender=gender.lower(),sub_caste=s_caste.lower(),mother_tongue=mother_tongue.lower(),native_region=native_town.lower(),date_of_birth=dob,place_of_birth=place_of_birth.lower())
         db.session.add(prof)
 
         father_name = request.form.get('father_name')
@@ -75,14 +77,14 @@ def profile():
         if kid:
             for k in kid:
                 try:
-                    kids = kids + "," +k
+                    kids = kids + "," +k.lower()
                 except:
-                    kids = k
+                    kids = k.lower()
         else:
             kids = None
 
-        fam = FamilyDetails(uid=session['id'],father_name=father_name,mother_name=mother_name,
-        grand_father=grand_father,grand_mother=grand_mother,great_grand_father=g_grand_father,great_grand_mother=g_grand_mother,spouse_name=spouse_name,kids=kids)
+        fam = FamilyDetails(uid=session['id'],father_name=father_name.lower(),mother_name=mother_name.lower(),
+        grand_father=grand_father.lower(),grand_mother=grand_mother.lower(),great_grand_father=g_grand_father.lower(),great_grand_mother=g_grand_mother.lower(),spouse_name=spouse_name.lower(),kids=kids)
 
         db.session.add(fam)
         db.session.commit()
@@ -93,8 +95,21 @@ def profile():
 @is_user_in
 def dashboard():
     id = session['id']
+    me = Users.query.filter_by(id=id).first()
 
-    return render_template('user/dashboard.html', user = True)
+    ids = []
+    surs = Users.query.filter_by(sur_name = me.sur_name).all()
+    for i in surs:
+        if i.id == id:
+            continue
+        ids.append(i.id)
+
+    names = {}
+    for i in ids:
+        friend = Users.query.filter_by(id=i).first() 
+        names.update({i :friend.first_name + friend.last_name})
+
+    return render_template('user/dashboard.html', user = True, friends=names)
 
 
 @user.route('/contact', methods=['GET','POST'])
@@ -110,4 +125,24 @@ def logout():
     id = session['id']
     session.pop('id', None)
     return redirect(url_for('hom.home'))
+
+@user.route('/letknow', methods=['POST'])
+@is_user_in
+def letknow():
+
+    id = request.form.get('id')
+    '''
+    with smtplib.SMTP("smtp.gmail.com") as server:
+        server.starttls()
+        server.login(user=my_mail,password=my_pass)
+        print('mail in process')
+        server.sendmail(
+            from_addr=my_mail,
+            to_addrs='darwinmick0@gmail.com',
+            msg = "This is my message"
+        )
+        print('mail sent!')
+    '''
+    print('i am final')
+    return jsonify({"success":"sent"})
 
