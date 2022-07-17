@@ -1,23 +1,47 @@
-{% if user %}
-
-{% extends 'user_base.html' %}
+{% extends "user_base.html" %}  
 
 {% block user_content %}
 
-<h1>I am user Contact</h1>
 
-{% endblock user_content %}
+{% if user %}
+<html>
+<head>
+<body>
+
+<form method="post" class=container>
+    <h1>Quick Inquiry </h1>
+
+    <div class="form-group">
+        <label for="First name">First Name</label>
+        <input type="text" class="form-control" name="f_name" placeholder="Enter your first name">
+    </div>
+    <div class="form-group">
+        <label for="Last name">Last Name</label>
+        <input type="text" class="form-control" name="l_name" placeholder="Enter your last name">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="Contact number">Contact number</label>
+        <input type="text" class="form-control" name="number" placeholder="Enter your Contact number">
+    </div>
+    <div>
+        <label for="Place of Residence">Message/Comment</label><br>
+        <textarea class="DNA" name="message"></textarea>
+    </div>
+    
+    <input type="submit" value="submit">
+  </form>
+</body>
+</html>
+</head>
 
 
 
-{% else %}
 
-{% extends 'base.html' %}
-
-{% block content %}
-
-<h1>I am everyone's Contact</h1>
-
-{% endblock content %}
 
 {% endif %}
+
+{% endblock user_content %}

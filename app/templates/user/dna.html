@@ -2,13 +2,45 @@
 
 {% block user_content %}
 
-<h1>User DNA Content</h1>
-<h1>User DNA Content</h1>
-<h1>User DNA Content</h1>
 
 {% if user %}
+<html>
+<head>
+<body>
 
+<form method="post" class=container>
+    <h1>Do contact us with your details </h1>
 
+    <div class="form-group">
+        <label for="First name">First Name</label>
+        <input type="text" class="form-control" name="f_name" placeholder="Enter your first name">
+    </div>
+    <div class="form-group">
+        <label for="Last name">Last Name</label>
+        <input type="text" class="form-control" name="l_name" placeholder="Enter your last name">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="Contact number">Contact number</label>
+        <input type="text" class="form-control" name="number" placeholder="Enter your Contact number">
+    </div>
+    <div class="form-group">
+        <label for="Residence">Place of Residence</label>
+        <input type="text" class="form-control" name="residence" placeholder="Enter your Place of Residence">
+    </div>
+    <div>
+        <label for="why">Why would you like to take DNA test?</label><br>
+        <textarea class="DNA" name="reason" placeholder="Why would you like to take DNA test?"></textarea>
+    </div>
+    
+    <input type="submit" value="submit">
+  </form>
+</body>
+</html>
+</head>
 
 
 

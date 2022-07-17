@@ -7,10 +7,12 @@ class Users(db.Model):
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
     email = db.Column(db.String(150), unique=True)
+    phone_number = db.Column(db.String(15))
     password = db.Column(db.String(150))
     date_of_birth = db.Column(db.String(20))
     place_of_birth = db.Column(db.String(20))
     gender = db.Column(db.String(10))
+    family_users = db.Column(db.String)
 
 class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,6 +26,7 @@ class Profile(db.Model):
     date_of_birth = db.Column(db.String(30))
     gender = db.Column(db.String(10))
     place_of_birth = db.Column(db.String(30))
+    biography = db.Column(db.String(5000))
 
 class FamilyDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,5 +39,24 @@ class FamilyDetails(db.Model):
     great_grand_mother = db.Column(db.String(30))
     spouse_name = db.Column(db.String(30))
     kids = db.Column(db.String(100))
+
+class DnaTest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
+    email = db.Column(db.String(150))
+    contact_number = db.Column(db.String(15))
+
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
+    email = db.Column(db.String(150))
+    message = db.Column(db.String(500))
+
+
 
 

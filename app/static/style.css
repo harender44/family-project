@@ -42,6 +42,15 @@ html{
      background-size: 100% 100%, 100% 100%, 100% 31px;
      background-attachment: local;
    }
+.DNA {
+    width: 99%;
+    height: 10em;
+    line-height: 31px;
+    background-image: -webkit-linear-gradient(left, white 0, transparent 0), -webkit-linear-gradient(right, white 0, transparent 0), -webkit-linear-gradient(white 30px, #ccc 30px, #ccc 31px, white 31px);
+    background-repeat: repeat-y;
+    background-size: 100% 100%, 100% 100%, 100% 31px;
+    background-attachment: local;
+  }
  
 .hover {
      resize: none !important;

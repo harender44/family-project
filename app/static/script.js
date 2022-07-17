@@ -16,3 +16,12 @@ $(document).on('click',".letknow",function(e){
     })
     e.preventDefault()
 })
+
+$(document).on('click','#accept-friend',function(){
+    id = $(this).val()
+    $.ajax({
+        type : "post",
+        url : "/user/accept_friend",
+        data : {'id':id}
+    })
+})

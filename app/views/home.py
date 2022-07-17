@@ -31,13 +31,14 @@ def signup():
         l_name = request.form.get('l_name')
         email = request.form.get('email')
         pswd = request.form.get('pswd')
+        pno = request.form.get('p_no')
 
         pswd = sha256_crypt.hash(pswd)
         
         if Users.query.filter_by(email=email).first():
             return jsonify({"message": "This email is already registered."})
         else:
-            user = Users(sur_name=s_name.lower(),first_name=f_name.lower(),last_name=l_name.lower(),email=email,password=pswd)
+            user = Users(sur_name=s_name.lower(),first_name=f_name.lower(),last_name=l_name.lower(),email=email,password=pswd,phone_number=pno)
             db.session.add(user)
             db.session.commit()
 
