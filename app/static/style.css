@@ -108,6 +108,25 @@ p {font-size: 16px;}
 .navbar-nav  li a:hover {
   color: #1abc9c !important;
 }
+.navbar .search-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+.navbar input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+.container .search-container {
+  float: right;
+}
 
 .container { 
   position: relative;
@@ -194,7 +213,52 @@ p {font-size: 16px;}
 .message a{
   color: var(--main-container-color);
 }
-
+.search-container{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row;
+}
+.search-wrapper{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.search-wrapper input{
+  margin-right: 10px;
+}
+.search-wrapper button{
+  border: none;
+  background: var(--main-container-color);
+  color: #fff;
+}
+.search-wrapper #results{
+  position: fixed;
+  z-index: 10;
+  background: #fff;
+  box-shadow: #00000059 0px 5px 15px;
+}
+#results li{
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  text-align: center;
+  width: 290px;
+  color: #000;
+  padding: 3px;
+}
+#results p{
+  margin: 0;
+}
+#results button{
+  background: #0000ff;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  padding: 1px;
+  margin: 0;
+}
 
 @media (min-width: 768px) {
   .gradient-form {

@@ -1,14 +1,24 @@
 {% extends "user_base.html" %}  
 
 {% block user_content %}
-
+<div class="search-container">
+    <div class="search-wrapper">
+        <div class="search-bar">
+            <input id="search" type="text" placeholder="Search...">
+            <div id="results">
+                
+            </div>
+        </div>
+        <button id="final-search">Search</button>
+    </div>
+</div>
 {% if user %}
 
-<h2>You may know:</h2>
+<h1>You may know:</h1>
 {% for i,name in friends.items() %}
 
-<div>
-    <p style="color:blue">{{ name }}</p>
+<div class="container">
+    <p style="color:rgb(255, 255, 255)">{{ name }}</p>
     <button class="letknow" style="background:red" value="{{ i }}">Let him/her know!</button>
 </div>
 

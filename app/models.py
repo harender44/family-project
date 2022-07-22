@@ -26,7 +26,7 @@ class Profile(db.Model):
     date_of_birth = db.Column(db.String(30))
     gender = db.Column(db.String(10))
     place_of_birth = db.Column(db.String(30))
-    biography = db.Column(db.String(5000))
+    biography = db.Column(db.Text())
 
 class FamilyDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)

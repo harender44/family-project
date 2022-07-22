@@ -1,6 +1,4 @@
-
-
-from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
+from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify,flash
 from functools import wraps
 
 from twilio.rest import Client
@@ -85,10 +83,10 @@ def profile():
         mother_name = request.form.get('mother_name')
         grand_father = request.form.get('grand_father')
         grand_mother = request.form.get('grand_mother')
-        g_grand_father = request.form.get('g_grand_father')
-        g_grand_mother = request.form.get('g_grand_mother')
+        g_grand_father =''   #g_grand_father = request.form.get('g_grand_father')
+        g_grand_mother =''     #g_grand_mother = request.form.get('g_grand_mother')
         spouse_name = request.form.get('spouse_name')
-        kid = request.form.getlist('kids')
+        kid = request.form.getlist('kid')
 
         kids = ""
         if kid:
@@ -99,7 +97,7 @@ def profile():
                     kids = k.lower()
         else:
             kids = None
-
+        
         fam = FamilyDetails(uid=session['id'],father_name=father_name.lower(),mother_name=mother_name.lower(),
         grand_father=grand_father.lower(),grand_mother=grand_mother.lower(),great_grand_father=g_grand_father.lower(),great_grand_mother=g_grand_mother.lower(),spouse_name=spouse_name.lower(),kids=kids)
 
@@ -115,28 +113,29 @@ def dashboard():
     try:
         me = Users.query.filter_by(id=id).first()
         gotra = Profile.query.filter_by(uid=id).first().gotra
+        ids = []
+        surs = Users.query.filter_by(sur_name = me.sur_name).all()
+        for i in surs:
+            if i.id == id:
+                continue
+            ids.append(i.id)
+    
+        gotras = Profile.query.filter_by(gotra = gotra).all()
+        for i in gotras:
+            if i.uid == id:
+                continue
+            ids.append(i.uid)
+    
+        names = {}
+        for i in ids:
+            friend = Users.query.filter_by(id=i).first() 
+            names.update({i :friend.first_name + friend.last_name})
+
+        return render_template('user/dashboard.html', user = True, friends=names)
+    
     except:
         flash("Complete your profile")
-
-    ids = []
-    surs = Users.query.filter_by(sur_name = me.sur_name).all()
-    for i in surs:
-        if i.id == id:
-            continue
-        ids.append(i.id)
-
-    gotras = Profile.query.filter_by(gotra = gotra).all()
-    for i in gotras:
-        if i.uid == id:
-            continue
-        ids.append(i.uid)
-
-    names = {}
-    for i in ids:
-        friend = Users.query.filter_by(id=i).first() 
-        names.update({i :friend.first_name + friend.last_name})
-
-    return render_template('user/dashboard.html', user = True, friends=names)
+    return render_template('user/dashboard.html')
 
 
 @user.route('/contact', methods=['GET','POST'])
@@ -242,6 +241,32 @@ def friend():
         return redirect(url_for('user.home'))
     friend = Users.query.filter_by(id=id_).first()
     return render_template('user/friend.html', friend=friend)
+
+@user.route('/search', methods=["POST"])
+def search():
+    q = request.form.get('q')
+    qq = f"%{q}%"
+    ppl_sn = Users.query.filter(Users.sur_name.like(qq)).all()
+    sn = Users.query.filter_by(id=session['id']).first().sur_name
+    go = Profile.query.filter_by(uid=session['id']).first().gotra
+    ppl_go = Profile.query.filter_by(gotra = go).all()
+    suggestions = []
+    for i in ppl_sn:
+        if i.id == session['id']:
+            continue
+        if i.sur_name == sn:
+            suggestions.append([str(i.id),i.sur_name+" "+i.first_name + " "+i.last_name])
+    for i in ppl_go:
+        if i.id == session['id']:
+            continue
+        f = Users.query.filter_by(id=i.uid).first()
+        pp = str(i.id),f.sur_name+" "+f.first_name + " "+f.last_name
+        if pp not in suggestions:
+            suggestions.append(pp)
+        
+    return jsonify({'results': suggestions})
+
+
 
 
 
