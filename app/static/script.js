@@ -1,9 +1,9 @@
 
 
-$(document).on('click',".letknow",function(e){
+$(document).on('click',"#results button",function(e){
     d =  $(this).val()
     $.ajax({
-        url: '/user/letknow',
+        url: '/user/add_friend',
         type : 'post',
         data : {'id':d},
         beforeSend : function(){
@@ -11,8 +11,11 @@ $(document).on('click',".letknow",function(e){
             $(this).attr("disabled",true)
         }
     })
-    .done(function(){
-        $(this).hide()
+    .done(function(response){
+        if(response.success){
+            $('#results').empty();
+            $('#search').val("");
+        }
     })
     e.preventDefault()
 })
@@ -39,7 +42,6 @@ $('.search_bar').ready(function(){
             })
             .done(function(response){
                 if(response.results){
-                    alert(response.results)
                     response.results.forEach(r => {
                         $("#results").append("<li><p>"+r[1]+"</p><button value="+r[0]+">Add Friend</button><li>")
                     });

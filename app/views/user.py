@@ -110,32 +110,21 @@ def profile():
 @is_user_in
 def dashboard():
     id = session['id']
-    try:
-        me = Users.query.filter_by(id=id).first()
-        gotra = Profile.query.filter_by(uid=id).first().gotra
-        ids = []
-        surs = Users.query.filter_by(sur_name = me.sur_name).all()
-        for i in surs:
-            if i.id == id:
-                continue
-            ids.append(i.id)
-    
-        gotras = Profile.query.filter_by(gotra = gotra).all()
-        for i in gotras:
-            if i.uid == id:
-                continue
-            ids.append(i.uid)
-    
-        names = {}
-        for i in ids:
-            friend = Users.query.filter_by(id=i).first() 
-            names.update({i :friend.first_name + friend.last_name})
-
-        return render_template('user/dashboard.html', user = True, friends=names)
-    
-    except:
-        flash("Complete your profile")
-    return render_template('user/dashboard.html')
+    me=Users.query.filter_by(id=id).first()
+    req = []
+    frs = []
+    frds = me.family_users
+    for i in frds.split(','):
+        if i[-1] != '+':
+            r = Users.query.filter_by(id=int(i)).first()
+            req.append({'id':i,'name':r.sur_name+' '+r.first_name+' '+r.last_name})
+        else:
+            r = Users.query.filter_by(id=int(i[:-1])).first()
+            frs.append({'id':i,'name':r.sur_name+' '+r.first_name+' '+r.last_name})
+            frs.append(i)
+    print(frs)
+    print(req)
+    return render_template('user/dashboard.html', user = True, friends=frs, requests=req)
 
 
 @user.route('/contact', methods=['GET','POST'])
@@ -163,14 +152,16 @@ def logout():
     session.pop('id', None)
     return redirect(url_for('hom.home'))
 
-@user.route('/letknow', methods=['POST'])
+@user.route('/add_friend', methods=['POST'])
 @is_user_in
-def letknow():
+def add_friend():
     me = Users.query.filter_by(id=session['id']).first()
     name=me.first_name
     id = request.form.get('id')
     friend = Users.query.filter_by(id=id).first().phone_number
     msg = f"Hey, {name} has invited you to the family tree on our app. To view him visit https://domain-name.com/user/{id}"
+    print(friend)
+    print(msg)
     '''
     client.messages.create(
         body=msg,   
@@ -183,7 +174,6 @@ def letknow():
     except:
         me.family_users = ''+id
     db.session.commit()
-    print('friend added')
     return jsonify({"success":"sent"})
 
 @user.route('/<int:i>')
@@ -201,10 +191,10 @@ def accept_friend():
     id_ = request.form.get('id')
     me1 = Users.query.filter_by(id=session['id']).first()
     me = me1.family_users
-    if me is not None:
-        me = me + ','+id_+'+'
-    else:
+    if me:
         me = id_+'+'
+    else:
+        me = me + ','+id_+'+'
     
     friend = Users.query.filter_by(id=id_).first()
     l = friend.family_users
@@ -246,25 +236,31 @@ def friend():
 def search():
     q = request.form.get('q')
     qq = f"%{q}%"
-    ppl_sn = Users.query.filter(Users.sur_name.like(qq)).all()
-    sn = Users.query.filter_by(id=session['id']).first().sur_name
+    ppl_sn = Users.query.filter(Users.first_name.like(qq)).all()
+    user = Users.query.filter_by(id=session['id']).first()
+    sn = user.sur_name
     go = Profile.query.filter_by(uid=session['id']).first().gotra
     ppl_go = Profile.query.filter_by(gotra = go).all()
+    if user.family_users is None:
+        friends = []
+    else:
+        friends = user.family_users.split(',')
     suggestions = []
     for i in ppl_sn:
-        if i.id == session['id']:
+        if i.id == session['id'] or str(i.id) in friends:
             continue
         if i.sur_name == sn:
             suggestions.append([str(i.id),i.sur_name+" "+i.first_name + " "+i.last_name])
     for i in ppl_go:
-        if i.id == session['id']:
+        if i.id == session['id'] or str(i.id) in friends:
             continue
         f = Users.query.filter_by(id=i.uid).first()
         pp = str(i.id),f.sur_name+" "+f.first_name + " "+f.last_name
         if pp not in suggestions:
             suggestions.append(pp)
-        
     return jsonify({'results': suggestions})
+
+
 
 
 

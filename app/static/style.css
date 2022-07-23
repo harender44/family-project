@@ -259,6 +259,28 @@ p {font-size: 16px;}
   padding: 1px;
   margin: 0;
 }
+.row{
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  flex-direction: row;
+}
+.col-2{
+  flex-basis: 50%;
+  max-width: 300px;
+  flex-direction: column;
+}
+.col-2 li{
+  list-style: none;
+  font-size: 16px;
+  text-align: left;
+}
+.col-2 h3{
+  color: #0000ff;
+}
+.col-2 p{
+  margin: 0;
+}
 
 @media (min-width: 768px) {
   .gradient-form {
@@ -266,5 +288,8 @@ p {font-size: 16px;}
    .gradient-custom-2 {
     border-top-right-radius: .3rem;
     border-bottom-right-radius: .3rem;
+  }
+  .col-2{
+    flex-basis: 100%;
   }
 }

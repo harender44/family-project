@@ -14,18 +14,32 @@
 </div>
 {% if user %}
 
-<h1>You may know:</h1>
-{% for i,name in friends.items() %}
-
-<div class="container">
-    <p style="color:rgb(255, 255, 255)">{{ name }}</p>
-    <button class="letknow" style="background:red" value="{{ i }}">Let him/her know!</button>
+<div class="row">
+    <div class="col-2">
+        <h3>Friends</h3>
+        {% if friends %}
+        <ul>
+            {% for f in friends %}
+                <li style="color:black" value={{f.get('id')}}>{{ f.get('name') }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p style="color:black">No friends found!!</p>
+        {% endif %}
+    </div>
+    <div class="col-2">
+        <h3>Requests</h3>
+        {% if requests %}
+        <ul>
+            {% for f in requests %}
+                <li style="color:black" value={{f.get('id')}}>{{ f.get('name') }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p style="color:black">No requests found!!</p>
+        {% endif %}
+    </div>
 </div>
-
-{% endfor %}
-
-
-
 
 {% endif %}
 
