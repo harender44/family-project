@@ -111,19 +111,21 @@ def profile():
 def dashboard():
     id = session['id']
     me=Users.query.filter_by(id=id).first()
-    req = []
-    frs = []
     frds = me.family_users
-    for i in frds.split(','):
-        if i[-1] != '+':
-            r = Users.query.filter_by(id=int(i)).first()
-            req.append({'id':i,'name':r.sur_name+' '+r.first_name+' '+r.last_name})
-        else:
-            r = Users.query.filter_by(id=int(i[:-1])).first()
-            frs.append({'id':i,'name':r.sur_name+' '+r.first_name+' '+r.last_name})
-            frs.append(i)
-    print(frs)
-    print(req)
+    if frds is not None:
+        frs=[]
+        req = []
+        for i in frds.split(','):
+            if i[-1] != '+':
+                r = Users.query.filter_by(id=int(i)).first()
+                req.append({'id':i,'name':r.sur_name+' '+r.first_name+' '+r.last_name})
+            else:
+                r = Users.query.filter_by(id=int(i[:-1])).first()
+                frs.append({'id':i,'name':r.sur_name+' '+r.first_name+' '+r.last_name})
+                frs.append(i)
+    else:
+        frs =None
+        req=None
     return render_template('user/dashboard.html', user = True, friends=frs, requests=req)
 
 
@@ -160,21 +162,22 @@ def add_friend():
     id = request.form.get('id')
     friend = Users.query.filter_by(id=id).first().phone_number
     msg = f"Hey, {name} has invited you to the family tree on our app. To view him visit https://domain-name.com/user/{id}"
-    print(friend)
-    print(msg)
-    '''
-    client.messages.create(
-        body=msg,   
-        from_ = keys.my_number,
-        to = '+91'+ friend
-    )
-    '''
     try:
-        me.family_users = me + ','+id
+        '''
+        client.messages.create(
+            body=msg,   
+            from_ = keys.my_number,
+            to = '+91'+ friend
+        )
+        '''
+        try:
+            me.family_users = me + ','+id
+        except:
+            me.family_users = ''+id
+        db.session.commit()
     except:
-        me.family_users = ''+id
-    db.session.commit()
-    return jsonify({"success":"sent"})
+        return jsonify({"error":"Your request is not sent!!"})
+    return jsonify({"success":"Your request has been sent successfully!!"})
 
 @user.route('/<int:i>')
 @is_user_in

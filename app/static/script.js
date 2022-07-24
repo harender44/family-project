@@ -15,6 +15,11 @@ $(document).on('click',"#results button",function(e){
         if(response.success){
             $('#results').empty();
             $('#search').val("");
+            $('#success_').text(response.success);
+            $('#success_').show(1000)
+            const timeo = setTimeout(function(){
+                $('#success_').hide(500)
+            }, 4000)
         }
     })
     e.preventDefault()

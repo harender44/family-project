@@ -4,43 +4,47 @@
 
 
 {% if person %}
-
+<div class="banner">
+    <h1>Profile</h1>
+</div>
+<div class="container">
 <div>
-    <h1>Your personal Details are:</h1>
-    <p style="color: red">sur_name: {{ person.sur_name }}</p>
-    <p style="color: red">first_name: {{ person.first_name }}</p>
-    <p style="color: red">last_name: {{ person.last_name }}</p>
-    <p style="color: red">email: {{ person.email }}</p>
+    <h2>Your personal Details are:</h2>
+    <p style="color: white">sur_name: {{ person.sur_name }}</p>
+    <p style="color: white">first_name: {{ person.first_name }}</p>
+    <p style="color: white">last_name: {{ person.last_name }}</p>
+    <p style="color: white">email: {{ person.email }}</p>
 </div>
 <br>
 
 {% if profile %}
 <div>
-    <h1>Your profile Details are:</h1>
-    <p style="color: red">gotra: {{ profile.gotra }}</p>
-    <p style="color: red">religion: {{ profile.religion }}</p>
-    <p style="color: red">caste: {{ profile.caste }}</p>
-    <p style="color: red">sub_caste: {{ profile.sub_caste }}</p>
-    <p style="color: red">mother_tongue: {{ profile.mother_tongue }}</p>
-    <p style="color: red">native_region: {{ profile.native_region }}</p>
-    <p style="color: red">date_of_birth: {{ profile.date_of_birth }}</p>
-    <p style="color: red">place_of_birth: {{ profile.place_of_birth }}</p>
-    <p style="color: red">gender: {{ profile.gender }}</p>
+    <h2>Your profile Details are:</h2>
+    <p style="color: white">gotra: {{ profile.gotra }}</p>
+    <p style="color: white">religion: {{ profile.religion }}</p>
+    <p style="color: white">caste: {{ profile.caste }}</p>
+    <p style="color: white">sub_caste: {{ profile.sub_caste }}</p>
+    <p style="color: white">mother_tongue: {{ profile.mother_tongue }}</p>
+    <p style="color: white">native_region: {{ profile.native_region }}</p>
+    <p style="color: white">date_of_birth: {{ profile.date_of_birth }}</p>
+    <p style="color: white">place_of_birth: {{ profile.place_of_birth }}</p>
+    <p style="color: white">gender: {{ profile.gender }}</p>
     </div>
     <br>
 {% endif %}
 
 {% if family %}
 <div>
-    <h1>Your family Details are:</h1>
-    <p style="color: red">father_name: {{ family.father_name }}</p>
-    <p style="color: red">mother_name: {{ family.mother_name }}</p>
-    <p style="color: red">grand_father: {{ family.grand_father }}</p>
-    <p style="color: red">grand_mother: {{ family.grand_mother }}</p>
-    <p style="color: red">great_grand_father: {{ family.great_grand_father }}</p>
-    <p style="color: red">great_grand_mother: {{ family.great_grand_mother }}</p>
-    <p style="color: red">spouse_name: {{ family.spouse_name }}</p>
-    <p style="color: red">kids: {{ family.kids }}</p>
+    <h2>Your family Details are:</h2>
+    <p style="color: white">father_name: {{ family.father_name }}</p>
+    <p style="color: white">mother_name: {{ family.mother_name }}</p>
+    <p style="color: white">grand_father: {{ family.grand_father }}</p>
+    <p style="color: white">grand_mother: {{ family.grand_mother }}</p>
+    <p style="color: white">great_grand_father: {{ family.great_grand_father }}</p>
+    <p style="color: white">great_grand_mother: {{ family.great_grand_mother }}</p>
+    <p style="color: white">spouse_name: {{ family.spouse_name }}</p>
+    <p style="color: white">kids: {{ family.kids }}</p>
+</div>
 </div>
 {% endif %}
 
@@ -58,7 +62,7 @@
 </style>
 
 <form method="post" class=container enctype="multipart/form-data">
-            <h1>Personal Details:</h1>
+            <h2>Personal Details:</h2>
             <div class="grid-container" >
             <div>
                 <label for="Gotra">Gotra:</label>

@@ -2,7 +2,7 @@
 *{
   --main-color: red;                /* #8629ff  */
   --headings-color: #ff0000;
-  --main-container-color: #0000ff;
+  --main-container-color: #007bff;
 }
 
 /*
@@ -12,7 +12,16 @@
   --main-container-color: #f39c12;
 }
 */
-
+.banner {
+  position: relative;
+  height: 600px;
+  background-image: url("https://www.vabulous.com/wp-content/uploads/2018/03/home-hero-bg-2.jpg");  
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  }
 
 html{
   margin: 0;
@@ -71,8 +80,16 @@ body {
 	background: #ffffff;
 } 
 h1{
-  font-weight: bold;
-  color: var(--headings-color);
+  font-size: 100px;
+  color: white;
+}
+h2{
+  font-size: 40px;
+  color: white;
+}
+h3{
+  font-size: 40px;
+  color: white;
 }
 p {font-size: 16px;}
 .margin {margin-bottom: 45px;}
@@ -130,12 +147,9 @@ p {font-size: 16px;}
 
 .container { 
   position: relative;
-  right: 50;
   margin: 20px;
-  max-width: 1200px;
+  max-width: 1550px;
   padding: 16px;
-  left: 50%;
-  margin-left: -600px; 
   background-color: var(--main-container-color);
 }
 .gradient-custom-2 {
@@ -281,6 +295,23 @@ p {font-size: 16px;}
 .col-2 p{
   margin: 0;
 }
+.success-message, .error_message{
+  display: none;
+  z-index: 100;
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  padding: 5px;
+  color: #000;
+}
+.success-message{
+  background: rgb(163, 255, 163);
+  border: 1px solid green;
+}
+.error_message{
+  background: rgb(255, 124, 124);
+  border: 1px solid red;
+}
 
 @media (min-width: 768px) {
   .gradient-form {
@@ -293,3 +324,5 @@ p {font-size: 16px;}
     flex-basis: 100%;
   }
 }
+
+
