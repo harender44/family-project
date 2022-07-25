@@ -143,9 +143,13 @@ def contact():
         db.session.add(record)
         db.session.commit()
         return redirect(url_for('user.home'))
-    id = session['id']
-    return render_template('contact.html', user = True)
+    return render_template('user/contact.html', user = True)
 
+
+@user.route('/about')
+@is_user_in
+def about():
+    return render_template('user/about.html')
 
 @user.route('/logout')
 @is_user_in
