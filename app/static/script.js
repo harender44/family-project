@@ -55,3 +55,17 @@ $('.search_bar').ready(function(){
         }
     })
 })
+
+$(document).on('click','#add-relation', function(){
+    $('#add-relation-form'.show(500));
+})
+
+$(document).on('click', '#delete-relation',function(){
+    $.ajax({
+        type : "post",
+        url : "/user/delete_relation",
+        data : $(this).val()
+    })
+})
+
+

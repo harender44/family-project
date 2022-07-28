@@ -1,0 +1,55 @@
+{% extends 'user_base.html' %}
+
+{% block user_content %}
+
+{% if relatives %}
+
+    <div>
+        {% for rel in relatives %}
+    
+        <div>
+            <p>{{ rel.first_name }}</p>
+            <p>{{ rel.relation_name }}</p>
+            <button id="add-relation" value="{{ rel.id }}">Add relation</button>
+            <button id="delete-relation" value="{{ rel.id }}">Delete relation</button>
+        </div>
+    
+        {% endfor %}
+    </div>
+
+{% else %}
+<p>No relations found!!</p>
+<button id="add-relation">Add a relation</button>
+{% endif %}
+
+<div id="add-relation-form">
+    <form type="post">
+        <div class="form-group">
+            <label for="First name">First Name</label>
+            <input type="text" class="form-control" name="f_name" placeholder="Enter your first name">
+        </div>
+        <div class="form-group">
+            <label for="Relation Name">Relation Name</label>
+            <input type="text" class="form-control" name="relation_name" placeholder="He/She is your ...">
+        </div>
+        <div class="form-group">
+          <label for="Date of Birth">Date of birth</label>
+          <input type="date" class="form-control" name="dob">
+        </div>
+        <div class="form-group">
+            <label for="Place of Birth">Place of birth</label>
+            <input type="date" class="form-control" name="palce_of_birth">
+        </div>
+        <div>
+            <label for="Gender">Gender:</label>
+            <select name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div> 
+        <input type="submit">
+    </form>
+</div>
+
+{% endblock user_content %}

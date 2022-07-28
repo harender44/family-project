@@ -1,6 +1,5 @@
 from . import db
 
-
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sur_name = db.Column(db.String(150))
@@ -12,7 +11,12 @@ class Users(db.Model):
     date_of_birth = db.Column(db.String(20))
     place_of_birth = db.Column(db.String(20))
     gender = db.Column(db.String(10))
+    relations = db.Column(db.String(100))
+    relation_name = db.Column(db.String(50))
     family_users = db.Column(db.String)
+    registered = db.Column(db.Boolean)
+    parent_user = db.Column(db.Integer)
+    added_by = db.Column(db.Integer)
 
 class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
