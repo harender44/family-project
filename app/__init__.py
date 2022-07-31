@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 
 from .models import *
 
-db.create_all(app=app)
+#db.create_all(app=app)
 
 class SecureView(ModelView):   
     column_hide_backrefs = False

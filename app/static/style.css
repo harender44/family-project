@@ -12,6 +12,7 @@
   --main-container-color: #f39c12;
 }
 */
+
 .banner {
   position: relative;
   height: 600px;
@@ -113,33 +114,32 @@ p {font-size: 16px;}
   padding-top: 70px;
   padding-bottom: 70px;
 }
-.navbar {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border: 0;
-  border-radius: 0;
-  margin-bottom: 0;
-  font-size: 12px;
-  letter-spacing: 5px;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+html {
+  height:50%;
+  background-image: linear-gradient(to right top, white 0%, #78d3e3);
 }
-.navbar-nav  li a:hover {
-  color: #1abc9c !important;
+
+
+
+nav ul {
+  text-align: center;
+  background: linear-gradient(90deg, #ff0000 0%,  #0000ff 25%,  #0000ff 75%, #ff0000 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
 }
-.navbar .search-container button {
-  float: right;
-  padding: 6px;
-  margin-top: 8px;
-  margin-right: 16px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
+
+nav ul li {
+  display: inline-block;
 }
-.navbar input[type=text] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none;
+nav ul li a {
+  padding: 18px;
+  font-family: "Open Sans";
+  text-transform:uppercase;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  display: block;
 }
 .container .search-container {
   float: right;
@@ -155,10 +155,7 @@ p {font-size: 16px;}
 .gradient-custom-2 {
   background: #fff;
   background: linear-gradient(to right, var(--main-container-color), var(--main-color));
-  }
-  
-
- 
+  } 
 .login_btn {
 	width: 100%;
 	background: var(--main-color);
@@ -313,7 +310,176 @@ p {font-size: 16px;}
   border: 1px solid red;
 }
 
-@media (min-width: 768px) {
+@import url("https://fonts.googleapis.com/css2?family=Asap&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Asap", sans-serif;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section:nth-child(1) {
+  color: #e0ffff;
+}
+section:nth-child(2) {
+  color: #42455a;
+  background: #e0ffff;
+}
+section:nth-child(3) {
+  color: #e0ffff;
+}
+section:nth-child(4) {
+  color: #42455a;
+  background: #e0ffff;
+}
+section .container {
+  margin: 100px;
+}
+section h1 {
+  font-size: 3rem;
+  margin: 20px;
+}
+section h2 {
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+section .text-container {
+  display: flex;
+}
+section .text-container .text-box {
+  margin: 20px;
+  padding: 20px;
+  background:#00c2cb;
+}
+section .text-container .text-box h3 {
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+  section h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+  section .text-container {
+    flex-direction: column;
+  }
+}
+
+.reveal {
+  position: relative;
+  opacity: 0;
+}
+
+.reveal.active {
+  opacity: 1;
+}
+.active.fade-bottom {
+  animation: fade-bottom 1s ease-in;
+}
+.active.fade-left {
+  animation: fade-left 1s ease-in;
+}
+.active.fade-right {
+  animation: fade-right 1s ease-in;
+}
+@keyframes fade-bottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-right {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.tree-container{
+  padding: 2%;
+  text-align: center;
+}
+.layer{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-evenly;
+  margin: 50px 0;
+}
+.node-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid blue;
+  border-radius: 4px;
+  padding: 0.2%;
+  margin: 0.5%;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+}
+.node-content{
+  width: 100%;
+  margin-inline: auto;
+}
+.node-box p{
+  margin: 0;
+  color: black;
+  font-size: 60%;
+}
+.node-box:hover > .node-options{
+  display: flex;
+}
+.node-options{
+  float: left;
+  display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 2px;
+  border-right: .5px solid rgba(0, 75, 250, 0.1);
+  cursor: pointer;
+}
+.node-options p{
+  margin: 0;
+}
+.node-options i{
+  color: black;
+  font-size: 60%;
+}
+.node-options p:hover, .node-options i:hover{
+  color: blue;
+}
+
+@media (max-width: 768px) {
   .gradient-form {
    height: 100vh !important;}
    .gradient-custom-2 {
@@ -323,6 +489,14 @@ p {font-size: 16px;}
   .col-2{
     flex-basis: 100%;
   }
+  .node-box p{
+    font-size: 40%;
+  }
+  .node-box{
+    height: 60px;
+    width: 60px;
+  }
+  .node-options i{
+    font-size: 50%;
+  }
 }
-
-

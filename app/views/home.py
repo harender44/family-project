@@ -18,7 +18,7 @@ def home():
                 print("verified")
                 session['id'] = user.id
                 print("got id")
-                return redirect(url_for('user.home'))
+                return redirect(url_for('user.profile'))
             flash('Invalid password!')
         flash('Invalid Credentials!')
     return render_template('home/home.html')
@@ -44,7 +44,7 @@ def signup():
 
             session['id'] = Users.query.filter_by(email=email).first().id
 
-            return redirect(url_for('user.home'))
+            return redirect(url_for('user.profile'))
 
     return render_template('home/signup.html')
 

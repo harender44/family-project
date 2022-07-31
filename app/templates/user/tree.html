@@ -4,26 +4,55 @@
 
 {% if relatives %}
 
-    <div>
-        {% for rel in relatives %}
-    
-        <div>
-            <p>{{ rel.first_name }}</p>
-            <p>{{ rel.relation_name }}</p>
-            <button id="add-relation" value="{{ rel.id }}">Add relation</button>
-            <button id="delete-relation" value="{{ rel.id }}">Delete relation</button>
-        </div>
-    
+<div class="tree-container">
+{% for rel in relatives %}
+
+    {% if relatives[rel] %}
+    <div class="layer">
+        {% for r in relatives[rel] %}
+        {% if user.first_name == r.first_name %}
+        
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus add-relation-click" value={{ r.id }}></i>
+                    <p value={{ r.id }}>S</p>
+                </div>
+                <div class="node-content" style="background: blue">
+                    <div class="node-content-in">
+                        <p>{{ r.first_name }}</p>
+                        <p>Myself</p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus add-relation-click" value={{ r.id }}></i>
+                    <i class="fa-solid fa-trash-can delete-relation-click" value={{ r.id }}></i>
+                    <p value={{ r.id }}>S</p>
+                </div>
+                <div class="node-content">
+                    <div class="node-content-in">
+                        <p>{{ r.first_name }}</p>
+                        <p>{{ rel }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
         {% endfor %}
+        
+        </div>
     </div>
+    
+    
+    {% endif %}
 
-{% else %}
-<p>No relations found!!</p>
-<button id="add-relation">Add a relation</button>
-{% endif %}
+{% endfor %}
+</div>
 
-<div id="add-relation-form">
-    <form type="post">
+<div id="add-relation-form" style="display:none">
+    <form method="post">
         <div class="form-group">
             <label for="First name">First Name</label>
             <input type="text" class="form-control" name="f_name" placeholder="Enter your first name">
@@ -52,4 +81,7 @@
     </form>
 </div>
 
+{% endif %}
+
 {% endblock user_content %}
+

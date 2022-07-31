@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<style>
+    .tree-container{
+        padding: 2%;
+        text-align: center;
+    }
+    .layer{
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        justify-content: space-evenly;
+        margin: 50px 0;
+    }
+    .node-box{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        border: 1px solid blue;
+        border-radius: 4px;
+        padding: 0.5%;
+        padding-left: 0;
+        margin: 0.5%;
+        height: 100px;
+        width: 100px;
+    }
+    .node-box p{
+        font-size: 100%;
+    }
+    .node-box:hover > .node-options{
+        display: flex;
+    }
+    .node-options{
+        float: left;
+        display: none;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding-right: 2px;
+        border-right: .5px solid rgba(0, 75, 250, 0.1);
+        cursor: pointer;
+    }
+    .node-options p{
+        margin: 0;
+    }
+    .node-options p:hover, .node-options i:hover{
+        color: blue;
+    }
+    @media (max-width:660px){
+        .node-box p{
+            font-size: 60%;
+        }
+        .node-box{
+            height: 50px;
+            width: 50px;
+        }
+    }
+</style>
+<body>
+    <div class="tree-container">
+        <div class="layer">
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+        </div>
+        <div class="layer">
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+        </div>
+        <div class="layer">
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+            <div class="node-box">
+                <div class="node-options">
+                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <p>S</p>
+                </div>
+                <div class="node-content">
+                    <p>I am and be </p>
+                    <p>you</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,6 +1,9 @@
 {% extends "user_base.html" %}  
 
 {% block user_content %}
+<section>
+    <div class="container reveal fade-right">
+        <div class="text-container">
 <div class="container">
     <div class="search-container">
         <div class="search-wrapper">
@@ -14,7 +17,7 @@
         </div>
     </div>
     {% if user %}
-
+    
     <div class="row">
         <div class="col-2">
             <h3>Friends</h3>
@@ -42,7 +45,9 @@
         </div>
     </div>
 </div>
-
+</div>
+</div>
+</section>
 {% endif %}
 
 {% endblock user_content %}

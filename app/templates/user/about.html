@@ -1,25 +1,17 @@
-{% if user %}
-
 {% extends 'user_base.html' %}
+
+{% if user %}
 
 {% block user_content %}
 
-<h1>I am user About</h1>
 
-
-{% else %}
-
-{% extends 'base.html' %}
-
-{% block content %}
 <div class="banner">
     <h1>About</h1>
   </div>
 <div class="container">
     <h1>I am everyone's About</h1>
 </div>
-{% endblock content %}
-
-{% endif %}
 
 {% endblock user_content %}
+
+{% endif %}

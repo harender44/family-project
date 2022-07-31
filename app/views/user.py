@@ -20,14 +20,6 @@ def is_user_in(f):
     return wrap
 
 
-@user.route('/')
-@is_user_in
-def home():
-    id = session['id']
-    user = Users.query.filter_by(id=id).first()
-    return render_template('user/user.html', user = user)
-
-
 @user.route('/dna', methods=['GET','POST'])
 @is_user_in
 def dna():
@@ -43,7 +35,7 @@ def dna():
         db.session.add(record)
         db.session.commit()
 
-        return redirect(url_for('user.home'))
+        return redirect(url_for('user.profile'))
 
     id = session['id']
     user = Users.query.filter_by(id=id).first()
@@ -56,14 +48,15 @@ def biography():
     user = Users.query.filter_by(id=id).first()
     return render_template('user/bio.html', user = user)
 
-@user.route('/profile', methods=["GET","POST"])
+@user.route('/', methods=["GET","POST"])
 @is_user_in
 def profile():
     if Profile.query.filter_by(uid=session['id']).first() and FamilyDetails.query.filter_by(uid=session['id']).first():
         person = Users.query.filter_by(id=session['id']).first()
         profile = Profile.query.filter_by(uid=session['id']).first()
         family = FamilyDetails.query.filter_by(uid=session['id']).first()
-        return render_template('user/profile.html',person=person, profile = profile, family=family)
+        
+        return render_template('user/profile.html',done=True,person=person, profile = profile, family=family)
     
     if request.method =="POST":
         gotra = request.form.get('gotra')
@@ -142,7 +135,7 @@ def contact():
         record = Contact(user_id=session['id'],first_name=f_name,last_name=l_name,contact_number=number,email=email,message=message)
         db.session.add(record)
         db.session.commit()
-        return redirect(url_for('user.home'))
+        return redirect(url_for('user.profle'))
     return render_template('user/contact.html', user = True)
 
 
@@ -190,7 +183,7 @@ def get_friend(i):
     peers =friend.family_users
     if str(session['id']) in peers.split(','):
         return render_template('user/friend_request.html', friend=friend)
-    return redirect(url_for('user.home'))
+    return redirect(url_for('user.profle'))
 
 @user.route('/accept_friend', methods=["POST"])
 @is_user_in
@@ -235,7 +228,7 @@ def friend():
     elif request.form.get('friend_id'):
         id_ = request.form.get('friend_id')
     else:
-        return redirect(url_for('user.home'))
+        return redirect(url_for('user.profle'))
     friend = Users.query.filter_by(id=id_).first()
     return render_template('user/friend.html', friend=friend)
 
@@ -331,18 +324,19 @@ def delete_relation():
 @user.route('/tree')
 @is_user_in
 def tree():
-    us = Users.query.filter_by(id=session['id']).first().relations
-    relatives = {-4:'',-3:'',-2:'',-1:'',0:'',1:'',2:'',3:'',4:''}
-    for i in us.splt(','):
-        id_ = int(i.split('+')[0])
+    user = Users.query.filter_by(id=session['id']).first()
+    us = user.relations
+    self_ = Users.query.filter_by(id=session['id']).first()
+    relatives = {-4:[],-3:[],-2:[],-1:[],0:[self_],1:[],2:[],3:[],4:[]}
+    if us:
+        for i in us.splt(','):
+            id_ = int(i.split('+')[0])
+        f = Users.query.filter_by(id=id_).first()
         level = int(i.split('+')[1])
-        if relatives[level] == '':
-            relatives[level] += id_
-        else:
-            relatives[level] += ','+id_
 
+        relatives[level] = relatives[level].append(f)
     print(relatives)
-    return render_template('user/tree.html', relatives=relatives)
+    return render_template('user/tree.html',user=user, relatives=relatives)
 
 
 

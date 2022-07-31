@@ -1,4 +1,20 @@
-
+function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+  
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      var elementVisible = 150;
+  
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add("active");
+      } else {
+        reveals[i].classList.remove("active");
+      }
+    }
+  }
+  
+  window.addEventListener("scroll", reveal);
 
 $(document).on('click',"#results button",function(e){
     d =  $(this).val()
@@ -56,15 +72,50 @@ $('.search_bar').ready(function(){
     })
 })
 
-$(document).on('click','#add-relation', function(){
-    $('#add-relation-form'.show(500));
+$(document).on('click','.add-relation-click',function(){
+    id_ = $(this).val();
+    $('#add-relation-form form').val(id_);
+    $('#add-relation-form').show(400);
 })
 
-$(document).on('click', '#delete-relation',function(){
+$(document).on('submit','#add-relation-form form',function(){
+    $.ajax({
+        type : "post",
+        url : "/user/add_relation",
+        data : {'id_' : $(this).val(),'details': $(this).serialize()}
+    })
+    .done(function(reponse){
+        if (response.error){
+            $('#error_').text(response.error);
+            $('#error_').show(500);
+            const timeo = setTimeout(function(){
+                $('#error_').hide(500)
+            }, 4000)
+        }
+    })
+})
+
+$(document).on('click', '.delete-relation-click',function(){
     $.ajax({
         type : "post",
         url : "/user/delete_relation",
-        data : $(this).val()
+        data : {id_ : $(this).val()}
+    })
+    .done(function(response){
+        if (response.error){
+            $('#error_').show(500);
+            $('#error_').text(response.error);
+            const timeo = setTimeout(function(){
+                $('#error_').hide(500)
+            }, 4000)
+        }
+        else{
+            $('#success_').show(500);
+            $('#success_').text(response.error);
+            const timeo = setTimeout(function(){
+                $('#success_').hide(500)
+            }, 4000)
+        }
     })
 })
 

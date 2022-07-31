@@ -2,8 +2,32 @@
 
 {% block user_content %}
 
+{% block title %}User - Profile{% endblock title %} 
+
+<div class="banner">
+    <h1>Welcome</h1>
+</div>
+  <section>
+    <div class="container reveal fade-bottom">
+      <div class="text-container">
+        <div class="text-box">
+          <h3>Find your family...</h3>
+          <p>
+As 21st century has changed the world we live in, the world is more connected than ever before and is one small village. People from one end of the world travel across the globe and live in different places of the world, to meet their aspiration, for work, passion, hobbies and any other reasons. There are many social networking platforms to stay connected with friends. It is equally important to stay connected with one’s family all the more, for the millennials and young generations who are global citizens and far from home land, to stay connected with family, origin and roots. Family roots, customs, culture define who we are With this endeavor to keep all connected, it is our effort to bring this platform to you.. We bring you VD to build and your family tree and connect with your family, know your ancestors, live your customs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+<a style="color:black" href="/user/logout">Logout</a>
+</div>
+
+{% if done %}
 
 {% if person %}
+<section>
+    <div class="container reveal fade-bottom">
+      <div class="text-container">
 <div class="banner">
     <h1>Profile</h1>
 </div>
@@ -16,8 +40,14 @@
     <p style="color: white">email: {{ person.email }}</p>
 </div>
 <br>
-
+</div>
+</div>
+</section>
+{% endif %}
 {% if profile %}
+<section>
+    <div class="container reveal fade-bottom">
+      <div class="text-container">
 <div>
     <h2>Your profile Details are:</h2>
     <p style="color: white">gotra: {{ profile.gotra }}</p>
@@ -31,9 +61,15 @@
     <p style="color: white">gender: {{ profile.gender }}</p>
     </div>
     <br>
+</div>
+</div>
+</section>
 {% endif %}
 
 {% if family %}
+<section>
+    <div class="container reveal fade-bottom">
+      <div class="text-container">
 <div>
     <h2>Your family Details are:</h2>
     <p style="color: white">father_name: {{ family.father_name }}</p>
@@ -46,21 +82,16 @@
     <p style="color: white">kids: {{ family.kids }}</p>
 </div>
 </div>
+</div>
+</div>
+</section>
 {% endif %}
 
 {% else %}
 
-<html>
-<head>
-<body>
-<style>
-    .grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 20px;
-}       
-</style>
-
+<section>
+    <div class="container reveal fade-bottom">
+      <div class="text-container">
 <form method="post" class=container enctype="multipart/form-data">
             <h2>Personal Details:</h2>
             <div class="grid-container" >
@@ -136,13 +167,10 @@
         <button type="submit" class="btn profile_btn">submit</button>
     </div>
 </form>
+</div>
+</div>
+</section>
   
-
-
-</body>
-</head>
-</html>
-
 {% endif %}
 
 {% endblock user_content %}
