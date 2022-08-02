@@ -73,8 +73,8 @@ $('.search_bar').ready(function(){
 })
 
 $(document).on('click','.add-relation-click',function(){
-    id_ = $(this).val();
-    $('#add-relation-form form').val(id_);
+    id_ = $(this).attr('value');
+    $('#add-relation-form form').attr({'name':id_});
     $('#add-relation-form').show(400);
 })
 
@@ -82,7 +82,7 @@ $(document).on('submit','#add-relation-form form',function(){
     $.ajax({
         type : "post",
         url : "/user/add_relation",
-        data : {'id_' : $(this).val(),'details': $(this).serialize()}
+        data : $(this).serialize()+"&id_="+$(this).attr('name')
     })
     .done(function(reponse){
         if (response.error){
@@ -96,10 +96,11 @@ $(document).on('submit','#add-relation-form form',function(){
 })
 
 $(document).on('click', '.delete-relation-click',function(){
+    alert($(this).attr('value'))
     $.ajax({
         type : "post",
         url : "/user/delete_relation",
-        data : {id_ : $(this).val()}
+        data : {"id_" : $(this).attr('value')}
     })
     .done(function(response){
         if (response.error){

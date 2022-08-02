@@ -263,6 +263,7 @@ def search():
 @user.route('/add_relation', methods=["POST"])
 @is_user_in
 def add_relation():
+    iid = request.form.get('id_')
     f_name = request.form.get('f_name')
     dob = request.form.get('dob')
     place_ob = request.form.get('place_of_birth')
@@ -272,70 +273,104 @@ def add_relation():
     if relation_name == "brother" or relation_name=="sister":
         level = '+0'
     elif relation_name == 'son' or relation_name=='daughter':
-        level = '+-1'
+        level = '-1'
     elif relation_name == "grand son" or relation_name == "grand daughter":
-        level = '+-2'
+        level = '-2'
     elif relation_name == 'father' or relation_name == 'mother' or relation_name == 'uncle' or relation_name == 'aunty':
         level = '+1'
     elif relation_name == "grand father" or relation_name == "grand mother":
         level = '+2'
+    elif relation_name == "great grand father" or relation_name == "great grand mother":
+        level = '+3'
     else:
-        print("May be wife.")
-        relation_name += '+0'
+        level += '+0'
 
-    if request.form.get('iid'):
-        iid = request.form.get('iid')
-    else:
-        iid = session['id']
     user = Users.query.filter_by(id=session['id']).first()
     
-    rel = Users(sur_name=user.sur_name,first_name=f_name,l_name=user.last_name,date_of_birth=dob,place_of_birth=place_ob,gender=gender,relation_name=relation_name,added_by=user.id, parent_user=int(iid))
+    rel = Users(sur_name=user.sur_name,first_name=f_name,last_name=user.last_name,date_of_birth=dob,place_of_birth=place_ob,gender=gender,relation_name=relation_name,added_by=user.id, parent_user=int(iid))
     db.session.add(rel)
     db.session.commit()
-
-    for i in user.relations.split(','):
-        if i[0] == str(iid):
-            iid_level = int(i[1])
+    try:
+        for i in user.relations.split(','):
+            if len(i.split('+'))>1:
+                k=i.split('+')
+                if int(k[0]) == int(iid):
+                    iid_level = int(k[1])
+                    break
+            else:
+                k=i.split('-')
+                if int(k[0]) == int(iid):
+                    iid_level = int('-'+k[1])
+                    break
+    except:
+        iid_level = 0
     
     new_user = Users.query.filter_by(parent_user=int(iid)).all()[-1]
 
+    iid_relations=Users.query.filter_by(id=int(iid)).first()
     try:
-        Users.query.filter_by(id=int(iid)).first().relations += ','+new_user.id+level
+        iid_relations.relations += ','+str(new_user.id)+level
     except TypeError:
-        Users.query.filter_by(id=int(iid)).first().relations = new_user.id+level
+        iid_relations.relations = str(new_user.id)+level
 
-    final_level = iid_level + level
-    try:
-        user.relations = ','+new_user.id+final_level
-    except TypeError:
-        user.relations = new_user.id+str(final_level)
+    final_level = int(iid_level) + int(level)
+
+    if int(iid)!=user.id:
+        try:
+            if final_level>=0:
+                user.relations += ','+str(new_user.id)+'+'+str(final_level)
+            else:
+                user.relations += ','+str(new_user.id)+str(final_level)
+        except TypeError:
+            if final_level>=0:
+                user.relations = str(new_user.id)+'+'+str(final_level)
+            else:
+                user.relations = str(new_user.id)+str(final_level)
 
     db.session.commit()
-    flash(f"Your {relation_name} is added successfully!")
-    return redirect(url_for('tree'))
+    
+    return jsonify({'success':'Relation added.'})
 
-@user.route('/delete_relation')
+@user.route('/delete_relation', methods=['POST'])
 @is_user_in
 def delete_relation():
-    id_ = request.form.get('id')
+    id_ = request.form.get('id_')
     user = Users.query.filter_by(id=session['id']).first()
-    return redirect(url_for('tree'))
+    rel = Users.query.filter_by(id=id_).first()
+    f = user.relations.split(',')
+    for r in f:
+        if id_ in r:
+            f.remove(r)
+            break
+    f_ =''
+    for r in f:
+        f_ = f_+r+','
+    f_ = f_[:-1]
+    try:
+        user.relations = f_
+        db.session.delete(rel)
+        db.session.commit()
+    except:
+        return jsonify({'error':'Relation is not removed'})
+    return redirect(url_for('user.tree'))
 
 @user.route('/tree')
 @is_user_in
 def tree():
     user = Users.query.filter_by(id=session['id']).first()
     us = user.relations
-    self_ = Users.query.filter_by(id=session['id']).first()
-    relatives = {-4:[],-3:[],-2:[],-1:[],0:[self_],1:[],2:[],3:[],4:[]}
+    relatives = {-4:[],-3:[],-2:[],-1:[],0:[user],1:[],2:[],3:[],4:[]}
     if us:
-        for i in us.splt(','):
-            id_ = int(i.split('+')[0])
-        f = Users.query.filter_by(id=id_).first()
-        level = int(i.split('+')[1])
-
-        relatives[level] = relatives[level].append(f)
-    print(relatives)
+        for i in us.split(','):
+            if len(i.split('+'))>1:
+                id_ = int(i.split('+')[0])
+                level = int(i.split('+')[1])
+            else:
+                id_ = int(i.split('-')[0])
+                j=i.split('-')[1]
+                level = int('-'+j)
+            f = Users.query.filter_by(id=id_).first()
+            relatives[level].append(f)
     return render_template('user/tree.html',user=user, relatives=relatives)
 
 

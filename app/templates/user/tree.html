@@ -34,6 +34,7 @@
                 <div class="node-content">
                     <div class="node-content-in">
                         <p>{{ r.first_name }}</p>
+                        <p>{{ r.id }}</p>
                         <p>{{ rel }}</p>
                     </div>
                 </div>
@@ -52,7 +53,7 @@
 </div>
 
 <div id="add-relation-form" style="display:none">
-    <form method="post">
+    <form>
         <div class="form-group">
             <label for="First name">First Name</label>
             <input type="text" class="form-control" name="f_name" placeholder="Enter your first name">
@@ -67,7 +68,7 @@
         </div>
         <div class="form-group">
             <label for="Place of Birth">Place of birth</label>
-            <input type="date" class="form-control" name="palce_of_birth">
+            <input type="text" class="form-control" name="palce_of_birth">
         </div>
         <div>
             <label for="Gender">Gender:</label>
