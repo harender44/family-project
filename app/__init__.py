@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 
 from .models import *
 
-#db.create_all(app=app)
+db.create_all(app=app)
 
 class SecureView(ModelView):   
     column_hide_backrefs = False
@@ -23,6 +23,8 @@ admin_database.init_app(app=app)
 admin_database.add_view(SecureView(Users, db.session))
 admin_database.add_view(SecureView(Profile, db.session))
 admin_database.add_view(SecureView(FamilyDetails, db.session))
+admin_database.add_view(SecureView(DnaTest, db.session))
+admin_database.add_view(SecureView(Contact, db.session))
 
 from .views import home,user 
 

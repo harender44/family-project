@@ -41,9 +41,20 @@ def dna():
     user = Users.query.filter_by(id=id).first()
     return render_template('user/dna.html', user = user)
 
-@user.route('/bio')
+@user.route('/bio', methods=['GET','POST'])
 @is_user_in
 def biography():
+    if request.method == "POST":
+        bio = request.form.get('bio')
+        profile = Profile.query.filter_by(id=session['id']).first()
+        if profile:
+            print("naughty.")
+            profile.biography = bio
+            db.session.commit()
+            return redirect(url_for('user.profile'))
+        flash('First complete your profile.!')
+        return redirect(url_for('user.biography'))
+        
     id = session['id']
     user = Users.query.filter_by(id=id).first()
     return render_template('user/bio.html', user = user)
@@ -160,14 +171,13 @@ def add_friend():
     friend = Users.query.filter_by(id=id).first().phone_number
     msg = f"Hey, {name} has invited you to the family tree on our app. To view him visit https://domain-name.com/user/{id}"
     try:
-        '''
         client.messages.create(
             body=msg,   
             from_ = keys.my_number,
             to = '+91'+ friend
         )
-        '''
         try:
+            print('ting')
             me.family_users = me + ','+id
         except:
             me.family_users = ''+id
@@ -239,8 +249,6 @@ def search():
     ppl_sn = Users.query.filter(Users.first_name.like(qq)).all()
     user = Users.query.filter_by(id=session['id']).first()
     sn = user.sur_name
-    go = Profile.query.filter_by(uid=session['id']).first().gotra
-    ppl_go = Profile.query.filter_by(gotra = go).all()
     if user.family_users is None:
         friends = []
     else:
@@ -251,13 +259,17 @@ def search():
             continue
         if i.sur_name == sn:
             suggestions.append([str(i.id),i.sur_name+" "+i.first_name + " "+i.last_name])
-    for i in ppl_go:
-        if i.id == session['id'] or str(i.id) in friends:
-            continue
-        f = Users.query.filter_by(id=i.uid).first()
-        pp = str(i.id),f.sur_name+" "+f.first_name + " "+f.last_name
-        if pp not in suggestions:
-            suggestions.append(pp)
+    go = Profile.query.filter_by(uid=session['id']).first()
+    if go:
+        go = go.gotra
+        ppl_go = Profile.query.filter_by(gotra = go).all()
+        for i in ppl_go:
+            if i.id == session['id'] or str(i.id) in friends:
+                continue
+            f = Users.query.filter_by(id=i.uid).first()
+            pp = str(i.id),f.sur_name+" "+f.first_name + " "+f.last_name
+            if pp not in suggestions:
+                suggestions.append(pp)
     return jsonify({'results': suggestions})
 
 @user.route('/add_relation', methods=["POST"])

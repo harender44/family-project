@@ -51,6 +51,8 @@ class DnaTest(db.Model):
     last_name = db.Column(db.String(150))
     email = db.Column(db.String(150))
     contact_number = db.Column(db.String(15))
+    residence = db.Column(db.String(50))
+    reason = db.Column(db.Text)
 
 
 class Contact(db.Model):

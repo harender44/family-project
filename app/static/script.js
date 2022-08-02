@@ -37,6 +37,13 @@ $(document).on('click',"#results button",function(e){
                 $('#success_').hide(500)
             }, 4000)
         }
+        else{
+            $('#error_').text(response.error);
+            $('#error_').show(1000)
+            const timeo = setTimeout(function(){
+                $('#error_').hide(500)
+            }, 4000)
+        }
     })
     e.preventDefault()
 })
