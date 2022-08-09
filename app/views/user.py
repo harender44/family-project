@@ -371,7 +371,7 @@ def delete_relation():
 def tree():
     user = Users.query.filter_by(id=session['id']).first()
     us = user.relations
-    relatives = {-4:[],-3:[],-2:[],-1:[],0:[user],1:[],2:[],3:[],4:[]}
+    relatives = {4:[],3:[],2:[],1:[],0:[user],1:[],2:[],3:[],4:[]}
     if us:
         for i in us.split(','):
             if len(i.split('+'))>1:

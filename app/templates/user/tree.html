@@ -6,12 +6,13 @@
 
 <div class="tree-container">
 {% for rel in relatives %}
-
     {% if relatives[rel] %}
     <div class="layer">
+
+        <div class="back back-{{ rel }}">
+        
         {% for r in relatives[rel] %}
         {% if user.first_name == r.first_name %}
-        
             <div class="node-box">
                 <div class="node-options">
                     <i class="fa-solid fa-plus add-relation-click" value={{ r.id }}></i>
@@ -42,7 +43,7 @@
         {% endif %}
         
         {% endfor %}
-        
+                
         </div>
     </div>
     
