@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify,flash
 from functools import wraps
+import random
 
 from twilio.rest import Client
 from .. import keys
@@ -177,7 +178,6 @@ def add_friend():
             to = '+91'+ friend
         )
         try:
-            print('ting')
             me.family_users = me + ','+id
         except:
             me.family_users = ''+id
@@ -386,4 +386,161 @@ def tree():
     return render_template('user/tree.html',user=user, relatives=relatives)
 
 
+@user.route('/forgotpassword')
+def forgot_password():
+    return render_template('home/forgot_pass.html')
 
+@user.route('/verify-number' , methods=['POST'])
+def verify_number():
+    number = request.form.get('number')
+    found_number = Users.query.filter_by(phone_number=number).first()
+    if found_number:
+        print("found")
+        name=found_number.first_name
+        return jsonify({'success':name})
+    print("not found")
+    return jsonify({'error':'This number is not registered'})
+
+
+@user.route('/generate-otp' , methods=['POST'])
+def generate_otp():
+    mynum = request.form.get('num')
+    if len(mynum) == 10:
+        otp = random.randint(100000,999999)
+        '''
+        try:
+            client.messages.create(
+                body=f"Your OTP for changing the password is {otp}",   
+                from_ = keys.my_number,
+                to = '+91'+ friend
+            )
+        except:
+            return jsonify({'error':'OTP is not sent'})
+        '''
+        print(otp)
+        return jsonify({'otp':otp,'success':'yes'})
+    return jsonify({'error':'Invalid number'})
+
+@user.route('/change-password' , methods=['POST'])
+def change_password():
+    mynum = request.form.get('numb')
+    us = Users.query.filter_by(phone_number=mynum).first()
+    return redirect(url_for('user.password_page', user=us))
+
+@user.route('/password-change')
+def password_page():
+    user = request.args.get('user')
+    return render_template('home/pass_change.html', user=user)
+
+@user.route('/password-changed' , methods=['POST'])
+def password_changed():
+    newpass = request.form.get('passw')
+    id_ = request.form.get('id_')
+    try:
+        use = Users.query.filter_by(id=id_).first()
+        use.password = newpass
+        db.session.commit()
+        return jsonify({'success':'Password is changed successfully.'})
+    except:
+        return jsonify({'error':'Unfortunately, password is not changed.'})
+
+
+@user.route('/edit_personal', methods=['POST'])
+def edit_personal():
+    id_ = request.form.get('id_')
+    s_name = request.form.get('esur_name')
+    f_name = request.form.get('efirst_name')
+    l_name = request.form.get('elast_name')
+    email = request.form.get('eemail')
+    me = Users.query.filter_by(id=id_).first()
+
+    if s_name:
+        me.sur_name = s_name
+    if f_name:
+        me.first_name = f_name
+    if l_name:
+        me.last_name = l_name
+    if email:
+        me.email = email    
+    try:
+        db.session.commit()
+    except:
+        flash('Detail are not updated. Try again!')
+
+    return redirect(url_for('user.profile'))
+
+@user.route('/edit_profile', methods=['POST'])
+def edit_personal():
+    id_ = request.form.get('id_')
+    gotra = request.form.get('egotra')
+    religion = request.form.get('ereligion')
+    caste = request.form.get('ecaste')
+    sub_caste = request.form.get('esub_caste')
+    mother_t = request.form.get('emother_tongue')
+    native_region = request.form.get('enative_region')
+    dob = request.form.get('edob')
+    place_of_birth = request.form.get('eplace_of_birth')
+
+    me = Users.query.filter_by(id=id_).first()
+
+    if gotra:
+        me.gotra = gotra
+    if religion:
+        me.religion = religion
+    if caste:
+        me.caste = caste
+    if sub_caste:
+        me.sub_caste = sub_caste
+    if mother_t:
+        me.mother_tongue = mother_t
+    if native_region:
+        me.native_region =native_region
+    if dob:
+        me.date_of_birth =dob
+    if place_of_birth:
+        me.place_of_birth =place_of_birth
+    try:
+        db.session.commit()
+    except:
+        flash('Detail are not updated. Try again!')
+    
+    return redirect(url_for('user.profile'))
+
+@user.route('/edit_family', methods=['POST'])
+def edit_personal():
+    id_ = request.form.get('id_')
+    father_name = request.form.get('efather_name')
+    mother_name = request.form.get('emother_name')
+    g_father = request.form.get('eg_father')
+    g_mother = request.form.get('eg_mother')
+    gg_father = request.form.get('egg_father')
+    gg_mother = request.form.get('egg_mother')
+    spouse = request.form.get('espouse')
+    kids = request.form.getlist('ekid')
+    me = Users.query.filter_by(id=id_).first()
+
+    if father_name:
+        me.father_name = father_name
+    if mother_name:
+        me.mother_name = mother_name
+    if g_father:
+        me.grand_father = g_father
+    if g_mother:
+        me.grand_mother = g_mother  
+    if gg_father:
+        me.great_grand_father =  gg_father
+    if gg_mother:
+        me.great_grand_mother = gg_mother 
+    if spouse:
+        me.spouse =  spouse
+    if kids:
+        k = kids[0]
+        for i in kids[1:]:
+            k=','+k
+        me.kids =  k
+    try:
+        db.session.commit()
+    except:
+        flash('Detail are not updated. Try again!')
+    
+    return redirect(url_for('user.profile'))

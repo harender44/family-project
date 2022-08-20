@@ -127,4 +127,149 @@ $(document).on('click', '.delete-relation-click',function(){
     })
 })
 
+$(document).on('click','#verify-number',function(event){
+    var num = $('#number-for-otp').val();
+    alert(num);
+    $.ajax({
+        type : "post",
+        url : "/user/verify-number",
+        data : {'number':num}
+    })
+    .done(function(response){
+        if(response.error){
+            $('#error_').show(500);
+            $('#error_').text(response.error);
+            const timeo = setTimeout(function(){
+                $('#error_').hide(500)
+            }, 4000)
+        }
+        else{
+            $.ajax({
+                type : 'post',
+                url : '/user/generate-otp',
+                data : {'num':num}
+            })
+            .done(function(res){
+                if (res.success){
+                    var otp = res.otp;
+                    alert(otp);
+                    $('#otp-field').removeAttr('disabled')
+                    $('#otp-submit').removeAttr('disabled')
+                    $('#otp-submit').click(function(){
+                        var k = $('#otp-field').val();
+                        if(k.length !=6){
+                            $('#error_').show(500);
+                            $('#error_').text("Invalid otp");
+                            const timeo = setTimeout(function(){
+                                $('#error_').hide(500)
+                            }, 4000)
+                        }
+                        else{
+                            alert("entered else")
+                            if(k==otp){
+                                alert('otp equals')
+                                $.ajax({
+                                    type: 'post',
+                                    url: '/user/change-password',
+                                    data : {'numb':num}
+                                })
+                                .done(function(resp){
+                                    if (resp.error){
+                                        $('#error_').show(500);
+                                        $('#error_').text(resp.error);
+                                        const timeo = setTimeout(function(){
+                                            $('#error_').hide(500)
+                                        }, 4000)
+                                    }
+                                    else{
+                                        $('#success_').show(500);
+                                        $('#success_').text(resp.error);
+                                        const timeo = setTimeout(function(){
+                                            $('#success_').hide(500)
+                                        }, 4000)
+                                    }
+                                })
+                            }
+                            else{
+                                $('#error_').show(500);
+                                $('#error_').text("Invalid OTP");
+                                const timeo = setTimeout(function(){
+                                    $('#error_').hide(500)
+                                }, 4000)
+                            }
+                        }
+                    })
+                }
+                else{
+                    $('#error_').show(500);
+                    $('#error_').text(res.error);
+                    const timeo = setTimeout(function(){
+                        $('#error_').hide(500)
+                    }, 4000)
+                }
+                if (res.error){
+                    alert(res.error);
+                }
+            })
+        }
+    })
+    event.preventDefault();
+})
 
+
+$(document).on('click','#password-change-submit',function(event){
+    var id_ = $(this).val()
+    var passw = $('#newpass').val()
+    $.ajax({
+        type : 'post',
+        url : '/user/password-changed',
+        data : {'id_':id_,'passw':passw}
+    }) 
+    .done(function(response){
+        if (response.error){
+            $('#error_').show(500);
+            $('#error_').text(response.error);
+            const timeo = setTimeout(function(){
+                $('#error_').hide(500)
+            }, 4000)
+        }
+        else{
+            $('#success_').show(500);
+            $('#success_').text(response.error);
+            const timeo = setTimeout(function(){
+                $('#success_').hide(500)
+            }, 4000)
+        }
+    })
+    event.preventDefault();
+})
+
+$(document).on('click','#edit_family',function(){
+    let id_ = $(this).val();
+    $('#edit_family_form').css('display','block');                                                                                                                     
+})
+
+function closeFamily(){
+    var e = document.getElementById('edit_family')
+    e.style.display = "none"
+}
+
+$(document).on('click','#edit_personal',function(){
+    let id_ = $(this).val();
+    $('#edit_personal_form').css('display','block');                                                                                                                     
+})
+
+function closePersonal(){
+    var e = document.getElementById('edit_personal')
+    e.style.display = "none"
+}
+
+$(document).on('click','#edit_profile',function(){
+    let id_ = $(this).val();
+    $('#edit_profile_form').css('display','block');                                                                                                                     
+})
+
+function closeProfile(){
+    var e = document.getElementById('edit_profile')
+    e.style.display = "none"
+}

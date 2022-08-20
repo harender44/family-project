@@ -15,9 +15,7 @@ def home():
         print("found user")
         if user:
             if sha256_crypt.verify(pswd, user.password):
-                print("verified")
                 session['id'] = user.id
-                print("got id")
                 return redirect(url_for('user.profile'))
             flash('Invalid password!')
         flash('Invalid Credentials!')

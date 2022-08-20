@@ -29,7 +29,7 @@ As 21st century has changed the world we live in, the world is more connected th
     <div class="container reveal fade-bottom">
       <div class="text-container">
 <div class="banner">
-    <h1>Profile</h1>
+    <h1>Profile</h1> 
 </div>
 <div class="container">
 <div>
@@ -41,6 +41,23 @@ As 21st century has changed the world we live in, the world is more connected th
 </div>
 <br>
 </div>
+</div>
+<button id="edit_personal" >Edit Personal details</button>
+<div id="edit_personal_form" style="display:none">
+    <form action="/user/edit_personal" method="post">
+        <input type="text" name="id_" value="{{ person.id }}" style="display:none">
+        <label>sur name:</label>
+        <input type="text" name="esur_name">
+        <label>first name:</label>
+        <input type="text" name="efirst_name">
+        <label>last name:</label>
+        <input type="text" name="elast_name">
+        <label>email:</label>
+        <input type="text" name="eemail">
+        
+        <input type="submit">Edit
+        <button onclick="closePersonal()">Cancel</button>
+    </form>
 </div>
 </section>
 {% endif %}
@@ -63,6 +80,31 @@ As 21st century has changed the world we live in, the world is more connected th
     <br>
 </div>
 </div>
+<button id="edit_profile">Edit Profile details</button>
+<div id="edit_profile_form" style="display:none">
+    <form action="/user/edit_profile" method="post">
+        <input type="text" name="id_" value="{{ profile.id }}" style="display:none">
+        <label>gotra:</label>
+        <input type="text" name="egotra">
+        <label>religion:</label>
+        <input type="text" name="ereligion">
+        <label>caste:</label>
+        <input type="text" name="ecaste">
+        <label>sub_caste:</label>
+        <input type="text" name="esub_caste">
+        <label>mother_tongue:</label>
+        <input type="text" name="emother_tonguer">
+        <label>native_region:</label>
+        <input type="text" name="enative_region">
+        <label>date_of_birth:</label>
+        <input type="text" name="edob">
+        <label>place_of_birth:</label>
+        <input type="text" name="eplace_of_birth">
+        
+        <input type="submit">Edit
+        <button onclick="closeProfile()">Cancel</button>
+    </form>
+</div>
 </section>
 {% endif %}
 
@@ -83,6 +125,34 @@ As 21st century has changed the world we live in, the world is more connected th
 </div>
 </div>
 </div>
+</div>
+<button id="edit_family" >Edit Family details</button>
+<div id="edit_family_form" style="display:none">
+    <form action="/user/edit_family" method="post">
+        <input type="text" name="id_" value="{{ family.id }}" style="display:none">
+        <label>Father Name:</label>
+        <input type="text" name="efather_name">
+        <label>Mother Name:</label>
+        <input type="text" name="emother_name">
+        <label>Grand Father:</label>
+        <input type="text" name="eg_father">
+        <label>Grand Mother:</label>
+        <input type="text" name="eg_mother">
+        <label>Great Grand Father:</label>
+        <input type="text" name="egg_father">
+        <label>Great Grand Mother:</label>
+        <input type="text" name="egg_mother">
+        <label>Spouse Name:</label>
+        <input type="text" name="espouse_name">
+        <label>Kids:</label>
+        <input type="text" name="ekid">``
+        <input type="text" name="ekid">
+        <input type="text" name="ekid">
+        <input type="text" name="ekid">
+
+        <input type="submit">Edit
+        <button onclick="closeFamily()">Cancel</button>
+    </form>
 </div>
 </section>
 {% endif %}
@@ -156,12 +226,11 @@ As 21st century has changed the world we live in, the world is more connected th
                 <input type="text" class="form-control" name="spouse_name" placeholder="Enter your Spouse name">
             </div>
         </div>     
-                <label for="Kids">Kids:</label>
-                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 1">
-                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 2">
-                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 3">
-                <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 4"><br>
-            
+            <label for="Kids">Kids:</label>
+            <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 1">
+            <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 2">
+            <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 3">
+            <input type="text" class="grid-container" name="kid" placeholder="Enter name of Kid 4"><br>
         </div><br>
     <div>
         <button type="submit" class="btn profile_btn">submit</button>
