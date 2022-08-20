@@ -371,7 +371,7 @@ def delete_relation():
 def tree():
     user = Users.query.filter_by(id=session['id']).first()
     us = user.relations
-    relatives = {4:[],3:[],2:[],1:[],0:[user],1:[],2:[],3:[],4:[]}
+    relatives = {4:[],3:[],2:[],1:[],0:[user],-1:[],-2:[],-3:[],-4:[]}
     if us:
         for i in us.split(','):
             if len(i.split('+'))>1:
@@ -427,7 +427,7 @@ def change_password():
     us = Users.query.filter_by(phone_number=mynum).first()
     return redirect(url_for('user.password_page', user=us))
 
-@user.route('/password-change')
+@user.route('/password-change', methods=["GET","POST"])
 def password_page():
     user = request.args.get('user')
     return render_template('home/pass_change.html', user=user)
@@ -443,7 +443,6 @@ def password_changed():
         return jsonify({'success':'Password is changed successfully.'})
     except:
         return jsonify({'error':'Unfortunately, password is not changed.'})
-
 
 @user.route('/edit_personal', methods=['POST'])
 def edit_personal():

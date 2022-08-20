@@ -2,9 +2,6 @@
 
 {% block user_content %}
 
-
-{% if user %}
-
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul>
@@ -23,14 +20,15 @@
                 <h1>My Biography:</h1>
             </div>
             <form method="post" class=container enctype="multipart/form-data">
-                <textarea  class="notes" name="bio" placeholder="Write  your  story...."></textarea>
+                <textarea  class="notes" name="bio" placeholder="Write  your  story....">
+                  {% if bio %}
+                    {{ bio }}
+                  {% endif %}
+                </textarea>
                 <input type='submit' value="Submit">
             </form>
-        
       </div>
     </div>
 </section>
-
-{% endif %}
 
 {% endblock user_content %}
