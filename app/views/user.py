@@ -506,7 +506,7 @@ def edit_profile():
     return redirect(url_for('user.profile'))
 
 @user.route('/edit_family', methods=['POST'])
-def edit_personal():
+def edit_family():
     id_ = request.form.get('id_')
     father_name = request.form.get('efather_name')
     mother_name = request.form.get('emother_name')
