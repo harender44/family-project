@@ -469,7 +469,7 @@ def edit_personal():
     return redirect(url_for('user.profile'))
 
 @user.route('/edit_profile', methods=['POST'])
-def edit_personal():
+def edit_profile():
     id_ = request.form.get('id_')
     gotra = request.form.get('egotra')
     religion = request.form.get('ereligion')
